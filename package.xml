@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>shm_image_save</name>
+  <version>1.0.0</version>
+  <description>nodelet for saving image to shared memory </description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
+  <maintainer email="hara@rt-net.jp">Isao Hara</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>Apache License v2.0</license>
+
+
+  <!-- Url tags are optional, but multiple are allowed, one per tag -->
+  <!-- Optional attribute type can be: website, bugtracker, or repository -->
+  <!-- <url type="website">http://wiki.ros.org/food_detection</url> -->
+
+
+  <!-- Author tags are optional, multiple are allowed, one per tag -->
+  <!-- Authors do not have to be maintainers, but could be -->
+  <author email="hara@rt-net.jp">Isao Hara</author>
+
+
+  <!-- The *depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+
+  <!-- for message generation
+  <build_depend>message_generation</build_depend>
+  <build_export_depend>message_generation</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+  -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+<!--
+  <build_depend>nekonote_food_vision</build_depend>
+-->
+  <build_depend>pluginlib</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>pcl_ros</build_depend>
+
+<!--
+  <build_export_depend>nekonote_food_vision</build_export_depend>
+-->
+  <build_export_depend>pluginlib</build_export_depend>
+  <build_export_depend>nodelet</build_export_depend>
+  <build_export_depend>cv_bridge</build_export_depend>
+  <build_export_depend>pcl_ros</build_export_depend>
+
+<!--
+  <exec_depend>nekonote_food_vision</exec_depend>
+-->
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <nodelet plugin="${prefix}/nodelet_description.xml" />
+  </export>
+</package>

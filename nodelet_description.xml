@@ -1,0 +1,12 @@
+<!---
+
+-->
+<library path="lib/libshm_image_save">
+  <class name="shm_image_save/plugin_nodelet_shm_saver"
+      type="shm_image_save::plugin_nodelet_shm_saver"
+      base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+
+</library>
