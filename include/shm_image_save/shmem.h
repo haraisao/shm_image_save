@@ -26,6 +26,23 @@
 #define SHM_IMAGE_LEN (30000000)
 #define MAX_MSGS (2)
 
+typedef struct cam_shm_data
+{
+  u_int32_t cam_info_size;
+  u_int32_t cam_image_size;
+  u_int32_t pcl_size;
+
+  u_int32_t cam_info_offset;
+  u_int32_t cam_image_offset;
+  u_int32_t pcl_offset;
+
+  u_int32_t cam_info_count;
+  u_int32_t cam_image_count;
+  u_int32_t pcl_count;
+
+  unsigned char data[SHM_IMAGE_LEN - 24]; // 4*6
+} cam_shm_data;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
