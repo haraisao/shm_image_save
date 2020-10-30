@@ -1,4 +1,4 @@
-#
+#! /usr/bin/env python
 # Test class
 # Shared Memory Library
 #  Copyright(C) 2020 Isao Hara
@@ -19,10 +19,11 @@ class ImageShm(shm.SharedMem):
     max_count = 2
 
     self.shm_offset={
-       'cam_info_size': 0, 'cam_image_size': 4, 'pcl_size': 8,
-       'cam_info_offset': 12, 'cam_image_offset': 16, 'pcl_offset': 20,
-       'cam_info_count': 24, 'cam_image_count': 28, 'pcl_count': 32,
-       'data': 36 
+       'max_count': 0,
+       'cam_info_size': 4, 'cam_image_size': 8, 'pcl_size': 12,
+       'cam_info_offset': 16, 'cam_image_offset': 20, 'pcl_offset': 24,
+       'cam_info_count': 28, 'cam_image_count': 32, 'pcl_count': 36,
+       'data': 40 
       } 
 
     self.bridge = cv_bridge.CvBridge()
