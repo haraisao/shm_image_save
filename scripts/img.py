@@ -27,8 +27,30 @@ class ImageShm(shm.SharedMem):
       } 
 
     self.bridge = cv_bridge.CvBridge()
+    self.cam_info = sensor_msgs.msg.CameraInfo()
     self.image = sensor_msgs.msg.Image()
     self.pcl = sensor_msgs.msg.PointCloud2()
+  #
+  #
+  def get_info_size(self):
+      ret = self.get_int('cam_info_size')
+      return ret
+  #
+  #
+  def get_info_offset(self):
+      return self.get_int('cam_info_offset')
+  #
+  #
+  def get_info_data(self):
+      pos = self.shm_offset['data'] + self.get_int('cam_info_offset')
+      return self.get_shm_bytes(pos, self.get_info_size())
+
+  #
+  #
+  def get_info_msg(self):
+      msg_data = self.get_info_data()
+      msg = self.cam_info.deserialize(msg_data)
+      return msg
   #
   #
   def get_image_size(self):
