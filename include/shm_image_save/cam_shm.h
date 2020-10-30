@@ -19,7 +19,7 @@ namespace shm_image_save
 class ImageSharedMem
 {
 public:
-  ImageSharedMem(int shm_id=SHM_IMAGE_ID);
+  ImageSharedMem(int shm_id=SHM_IMAGE_ID, int size=SHM_IMAGE_LEN);
 
   ~ImageSharedMem(){ }
 
@@ -28,10 +28,11 @@ public:
   sensor_msgs::PointCloud2Ptr get_pcl_data();
 
 private:
-  void map_cam_shm_data(int shm_id=SHM_IMAGE_ID);
+  void map_cam_shm_data(int shm_id, int size);
   cam_shm_data *cam_data_;
 
   int shmid_;
+  int shm_size_;
 
   sensor_msgs::CameraInfoPtr info_;
   sensor_msgs::ImagePtr img_;

@@ -28,6 +28,7 @@
 
 typedef struct cam_shm_data
 {
+  u_int32_t max_count;
   u_int32_t cam_info_size;
   u_int32_t cam_image_size;
   u_int32_t pcl_size;

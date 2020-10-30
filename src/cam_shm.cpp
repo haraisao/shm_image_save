@@ -16,23 +16,23 @@ namespace shm_image_save
  * @brief Constructor for VisionBase
  * @fn VisionBase::VisionBase()
  */
-ImageSharedMem::ImageSharedMem(int shm_id)
-		: shmid_(0), cam_data_(NULL)
+ImageSharedMem::ImageSharedMem(int shm_id, int size)
+		: shmid_(0), cam_data_(NULL), shm_size_(size)
 {
-  map_cam_shm_data(shm_id);
+  map_cam_shm_data(shm_id, size);
 }
 
 void 
-ImageSharedMem::map_cam_shm_data(int shm_id)
+ImageSharedMem::map_cam_shm_data(int shm_id, int size)
 {
   void *res;
-  res = map_shared_mem(&shmid_, shm_id, SHM_IMAGE_LEN,0);
+  res = map_shared_mem(&shmid_, shm_id, size,0);
   if(res == NULL){
-    res = map_shared_mem(&shmid_, shm_id, SHM_IMAGE_LEN,1);
+    res = map_shared_mem(&shmid_, shm_id, size,1);
     if (res < 0){
       fprintf(stderr, "Fail to map cam_shm_data\n");
     }
-    memset(res, 0, SHM_IMAGE_LEN);
+    memset(res, 0, size);
   }else{
     cam_data_ = (cam_shm_data *)res;
   }

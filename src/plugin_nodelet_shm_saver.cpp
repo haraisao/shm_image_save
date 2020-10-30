@@ -52,8 +52,11 @@ plugin_nodelet_shm_saver::setup_shm()
 {
   ros::param::param<int>("/shm_image_save/shm_id", m_id_, SHM_IMAGE_ID);
   ros::param::param<int>("/shm_image_save/shm_size", m_size_, SHM_IMAGE_LEN);
+  ros::param::param<int>("/shm_image_save/max_count", m_max_count_, MAX_MSGS);
   m_cam_ = map_cam_shm(&m_shmid_, m_id_, m_size_);
-
+  if (m_cam_ != NULL){
+    m_cam_->max_count = m_max_count_;
+  }
   return;
 }
 
@@ -70,7 +73,7 @@ plugin_nodelet_shm_saver::callbackCameraInfo(
   ros::serialization::serialize(stream, *msg);
 
   m_cam_->cam_info_size = serial_size;
-  int pos = (m_cam_->cam_info_count+1) % MAX_MSGS;
+  int pos = (m_cam_->cam_info_count+1) % m_max_count_;
   int offset = m_cam_->cam_info_size * pos;
 
   memcpy(m_cam_->data + offset, (void *)buffer.get(), serial_size);
@@ -95,8 +98,8 @@ plugin_nodelet_shm_saver::callbackColorImage(
   ros::serialization::serialize(stream, *msg);
 
   m_cam_->cam_image_size = serial_size;
-  int pos = (m_cam_->cam_image_count+1) % MAX_MSGS;
-  int offset = m_cam_->cam_info_size * MAX_MSGS 
+  int pos = (m_cam_->cam_image_count+1) % m_max_count_;
+  int offset = m_cam_->cam_info_size * m_max_count_ 
                + m_cam_->cam_image_size * pos;
 
   memcpy(m_cam_->data + offset, (void *)buffer.get(), serial_size);
@@ -121,9 +124,9 @@ plugin_nodelet_shm_saver::callbackRsCloud(
 
   m_cam_->pcl_size = serial_size;
 
-  int pos = (m_cam_->pcl_count+1) % MAX_MSGS;
-  int offset = m_cam_->cam_info_size * MAX_MSGS 
-               + m_cam_->cam_image_size * MAX_MSGS
+  int pos = (m_cam_->pcl_count+1) % m_max_count_;
+  int offset = m_cam_->cam_info_size * m_max_count_ 
+               + m_cam_->cam_image_size * m_max_count_
                + m_cam_->pcl_size * pos;
 
   memcpy(m_cam_->data + offset, (void *)buffer.get(), serial_size);

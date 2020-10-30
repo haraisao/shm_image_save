@@ -50,6 +50,7 @@ private:
   // Shared Memory
   int m_id_;
   int m_size_;
+  int m_max_count_;
   int m_shmid_;
   cam_shm_data *m_cam_;
 };
