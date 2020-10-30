@@ -11,17 +11,17 @@ namespace shm_image_save
   Map a shared memory for camera images
 */
 cam_shm_data *
-map_cam_shm(int *shmid, int id)
+map_cam_shm(int *shmid, int id, int size)
 {
   void *res;
-  res=map_shared_mem(shmid, id, SHM_IMAGE_LEN,0);
+  res=map_shared_mem(shmid, id, size, 0);
   if(res == NULL){
-    res=map_shared_mem(shmid, id, SHM_IMAGE_LEN,1);
+    res=map_shared_mem(shmid, id, size, 1);
     if (res < 0){
       fprintf(stderr, "Fail to map cam_shm_data\n");
       return NULL;
     }
-    memset(res, 0, SHM_IMAGE_LEN);
+    memset(res, 0, size);
   }
   return (cam_shm_data *)res;
 }
@@ -33,7 +33,8 @@ void
 plugin_nodelet_shm_saver::onInit()
 {
   nh_ = getNodeHandle();
-  m_cam_ = map_cam_shm(&m_shmid_, SHM_IMAGE_ID);
+  setup_shm();
+
   if (m_cam_ != NULL){
     cam_info_sub_ = nh_.subscribe(CAMERA_INFO, 1,
                        &plugin_nodelet_shm_saver::callbackCameraInfo,this);
@@ -43,6 +44,16 @@ plugin_nodelet_shm_saver::onInit()
                        &plugin_nodelet_shm_saver::callbackRsCloud,this);
     ROS_INFO("Initialize shm_saver nodelet");
   }
+  return;
+}
+
+void
+plugin_nodelet_shm_saver::setup_shm()
+{
+  ros::param::param<int>("/shm_image_save/shm_id", m_id_, SHM_IMAGE_ID);
+  ros::param::param<int>("/shm_image_save/shm_size", m_size_, SHM_IMAGE_LEN);
+  m_cam_ = map_cam_shm(&m_shmid_, m_id_, m_size_);
+
   return;
 }
 

@@ -30,6 +30,10 @@
   <group ns="$(arg camera)">
     <node pkg="nodelet" type="nodelet" name="shm_image_saver"
       args="load shm_image_save/plugin_nodelet_shm_saver $(arg manager)" >
+      <rosparam param="/shm_image_save/shm_id">234567</rosparam>
+<!--
+      <rosparam param="/shm_image_save/shm_size">30000000</rosparam>
+-->
       <remap from="camera_info"		to="$(arg rgb)/camera_info" />
       <remap from="camera_image"		to="$(arg rgb)/image_raw" />
 <!--

@@ -26,6 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME}
   #CATKIN_DEPENDS roscpp
 )
 
@@ -44,6 +45,7 @@ include_directories(
 add_library(${PROJECT_NAME}
   src/plugin_nodelet_shm_saver.cpp
   src/shmem.cpp
+  src/cam_shm.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

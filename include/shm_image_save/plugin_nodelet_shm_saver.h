@@ -33,6 +33,7 @@ class plugin_nodelet_shm_saver : public nodelet::Nodelet
 {
 public:
   void onInit();
+  void setup_shm();
 
 private:
   void callbackCameraInfo(const sensor_msgs::CameraInfoConstPtr &msg);
@@ -47,6 +48,8 @@ private:
   
 
   // Shared Memory
+  int m_id_;
+  int m_size_;
   int m_shmid_;
   cam_shm_data *m_cam_;
 };

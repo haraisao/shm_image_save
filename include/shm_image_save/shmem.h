@@ -40,7 +40,7 @@ typedef struct cam_shm_data
   u_int32_t cam_image_count;
   u_int32_t pcl_count;
 
-  unsigned char data[SHM_IMAGE_LEN - 24]; // 4*6
+  unsigned char data[];
 } cam_shm_data;
 
 #ifdef __cplusplus
