@@ -55,10 +55,12 @@ class SharedMem(object):
   #
   def set_char(self, name, val):
       self.shm.write( struct.pack('c',val),self.get_offset(name) )
+      # for Python3
+      #self.shm.write( struct.pack('c',bytes(val, 'utf-8')),self.get_offset(name) )
       return
 
   def set_uchar(self, name, val):
-      self.shm.write( struct.pack('B',vak), self.get_offset(name) )
+      self.shm.write( struct.pack('B',val), self.get_offset(name) )
       return
 
   def set_short(self, name, val):
